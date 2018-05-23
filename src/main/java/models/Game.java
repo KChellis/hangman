@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Game {
     private String[] wordList = {"zebra"};
-    private String userGuess;
+    private List<Character> userGuess = new ArrayList<Character>();
     private List<Character> guessedLetters = new ArrayList<Character>();
     private String answer;
 
@@ -24,30 +24,25 @@ public class Game {
         return wordList[index];
     }
 
-    public String setAnswer(String word) {
+    public void setAnswer(String word) {
         this.answer = word;
-        return answer;
     }
-
-    public String setGuess() {
-        char[] answerLetters = answer.toCharArray();
-        List<Character> letters = new ArrayList<Character>();
-        for (int i =0; i < answerLetters.length; i++){
-            letters.add('_');
-        }
-        StringBuilder builder = new StringBuilder(letters.size());
-        for(Character letter : letters){
-            builder.append(letter);
-        }
-        userGuess = builder.toString();
-        return userGuess;
-    }
-
     public String getAnswer() {
         return answer;
     }
 
-    public String getGuess(){
+    public List<Character> setGuess() {
+        char[] answerLetters = answer.toCharArray();
+        for (int i =0; i < answerLetters.length; i++){
+            userGuess.add('_');
+        }
+
+        return userGuess;
+    }
+
+
+
+    public List<Character> getGuess(){
         return userGuess;
     }
 
@@ -61,8 +56,7 @@ public class Game {
         return false;
     }
 
-    public String revealLetters(char letterGuess){
-        char[] guessLetters = userGuess.toCharArray();
+    public List<Character> revealLetters(char letterGuess){
         char[] answerLetters = answer.toCharArray();
         List<Integer> indices = new ArrayList<Integer>();
         for (int i =0; i< answerLetters.length; i++){
@@ -71,19 +65,20 @@ public class Game {
             }
         }
         for (int index: indices){
-            guessLetters[index]= letterGuess;
+            userGuess.set(index, letterGuess);
         }
-        userGuess = guessLetters.toString();
-        StringBuilder builder = new StringBuilder(guessLetters.length);
-        for(Character letter : guessLetters){
-            builder.append(letter);
-        }
-        userGuess = builder.toString();
+
         return userGuess;
     }
 
     public boolean checkWin() {
-        if (userGuess.equals(answer)){
+        String guessString;
+        StringBuilder builder = new StringBuilder(userGuess.size());
+        for(Character letter: userGuess){
+            builder.append(letter);
+        }
+        guessString = builder.toString();
+        if (guessString.equals(answer)){
             return true;
         } else {
             return false;

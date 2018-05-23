@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -15,54 +16,48 @@ public class GameTest {
     }
 
     @Test
-    public void newGame_getsWordList_Array() {
+    public void newGame_getsWordList_Array() throws Exception{
         Game testGame = new Game();
         assertEquals(true, testGame.getWordList() instanceof String[]);
     }
     @Test
-    public void newGame_getsGuessedLetters_Array() {
+    public void newGame_getsGuessedLetters_Array() throws Exception{
         Game testGame = new Game();
         assertEquals(true, testGame.getGuessedLetters() instanceof ArrayList);
     }
 
     @Test
-    public void generateWord_randomlyChoosesWord_string() {
+    public void generateWord_randomlyChoosesWord_string() throws Exception{
         Game testGame = new Game();
         assertEquals(true, testGame.generateWord() instanceof String);
     }
 
     @Test
-    public void newGame_setsAnswer_zebra() {
-        Game testGame = new Game();
-        assertEquals(true, testGame.setAnswer("zebra") instanceof String);
-    }
-
-    @Test
-    public void newGame_getAnswer_zebra() {
+    public void newGame_getAnswer_zebra() throws Exception{
         Game testGame = new Game();
         testGame.setAnswer("zebra");
         assertEquals("zebra", testGame.getAnswer());
     }
 
-    @Test
-    public void setsGuess_createsEmptyGuessString_string() {
-        Game testGame = new Game();
-        testGame.setAnswer("zebra");
-        assertEquals("_____", testGame.setGuess());
-    }
-
 
     @Test
-    public void newGame_getGuess_String() {
+    public void newGame_getGuess_String() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
         testGame.setGuess();
-        assertEquals("_____", testGame.getGuess());
+        List<Character> expected = new ArrayList<Character>();
+        expected.add('_');
+        expected.add('_');
+        expected.add('_');
+        expected.add('_');
+        expected.add('_');
+        assertEquals(expected, testGame.getGuess());
     }
 
     @Test
-    public void newGame_checksGuess_addsToCharacterGuessedList() {
+    public void newGame_checksGuess_addsToCharacterGuessedList() throws Exception {
         Game testGame = new Game();
+        testGame.setAnswer("zebra");
         ArrayList<Character> expected = new ArrayList<Character>();
         expected.add('z');
         testGame.checkGuess('z');
@@ -70,29 +65,36 @@ public class GameTest {
     }
 
     @Test
-    public void checksGuess_checksIfGuessInAnswer_true() {
+    public void checksGuess_checksIfGuessInAnswer_true() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
         assertEquals(true, testGame.checkGuess('z'));
     }
     @Test
-    public void checksGuess_checksIfGuessNotInAnswer_false() {
+    public void checksGuess_checksIfGuessNotInAnswer_false() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
         assertEquals(false, testGame.checkGuess('g'));
     }
 
     @Test
-    public void revealLetters_revealsLettersInUserGuess_string() {
+    public void revealLetters_revealsLettersInUserGuess_string() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
         testGame.setGuess();
-        assertEquals("z____", testGame.revealLetters('z'));
+        List<Character> expected = new ArrayList<Character>();
+        expected.add('z');
+        expected.add('_');
+        expected.add('_');
+        expected.add('_');
+        expected.add('_');
+
+        assertEquals(expected, testGame.revealLetters('z'));
 
     }
 
     @Test
-    public void checkWin_returnsFalseIfWrongGuess_false() {
+    public void checkWin_returnsFalseIfWrongGuess_false() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
         testGame.setGuess();
@@ -100,7 +102,7 @@ public class GameTest {
     }
 
     @Test
-    public void checkWin_returnsTrueIfCorrectGuess_true() {
+    public void checkWin_returnsTrueIfCorrectGuess_true() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
         testGame.setGuess();
