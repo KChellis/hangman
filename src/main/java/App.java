@@ -19,12 +19,41 @@ public class App {
 
 
             try {
+                boolean guessing = true;
                 Game hangman = new Game();
                 hangman.setAnswer(hangman.generateWord());
                 hangman.setGuess();
-                System.out.println("Your puzzle is: " + hangman.getGuess() + " Guess a letter.");
 
-                String guess = bufferedReader.readLine();
+                while(guessing){
+                    System.out.println("You have guessed: " + hangman.getGuessedLetters());
+                    System.out.println("Your puzzle is: " + hangman.getGuess() + " Guess a letter.");
+                    String userInput = bufferedReader.readLine().toLowerCase();
+                    char guess = userInput.charAt(0);
+                    boolean inWord = hangman.checkGuess(guess);
+                    if (inWord) {
+                        hangman.revealLetters(guess);
+                        if(hangman.checkWin()){
+                            System.out.println("Congratulations you guessed the word!");
+                            guessing = false;
+                        }
+
+                    }else {
+                        System.out.println("Sorry, '" + guess + "' is not in the word. Try Again");
+                    }
+                    if(hangman.getGuessedLetters().size() == 6){
+                        System.out.println("You have run out of turns. The word was " + hangman.getAnswer() + ".");
+                        guessing = false;
+                    }
+
+
+                }
+                System.out.println("Would you like to play again? y/n");
+                String playAgain = bufferedReader.readLine().toLowerCase();
+                if(playAgain.equals("n")){
+                    playing = false;
+                }
+
+
 
 
             } catch (IOException e) {

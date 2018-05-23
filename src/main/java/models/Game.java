@@ -31,16 +31,12 @@ public class Game {
         return answer;
     }
 
-    public List<Character> setGuess() {
+    public void setGuess() {
         char[] answerLetters = answer.toCharArray();
         for (int i =0; i < answerLetters.length; i++){
             userGuess.add('_');
         }
-
-        return userGuess;
     }
-
-
 
     public List<Character> getGuess(){
         return userGuess;
@@ -56,7 +52,7 @@ public class Game {
         return false;
     }
 
-    public List<Character> revealLetters(char letterGuess){
+    public void revealLetters(char letterGuess){
         char[] answerLetters = answer.toCharArray();
         List<Integer> indices = new ArrayList<Integer>();
         for (int i =0; i< answerLetters.length; i++){
@@ -67,8 +63,6 @@ public class Game {
         for (int index: indices){
             userGuess.set(index, letterGuess);
         }
-
-        return userGuess;
     }
 
     public boolean checkWin() {

@@ -88,8 +88,9 @@ public class GameTest {
         expected.add('_');
         expected.add('_');
         expected.add('_');
+        testGame.revealLetters('z');
 
-        assertEquals(expected, testGame.revealLetters('z'));
+        assertEquals(expected, testGame.getGuess());
 
     }
 
