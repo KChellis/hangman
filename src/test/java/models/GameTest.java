@@ -114,4 +114,18 @@ public class GameTest {
         testGame.revealLetters('a');
         assertEquals(true, testGame.checkWin());
     }
+
+    @Test
+    public void getCount_returnCount_0() {
+        Game testGame = new Game();
+        assertEquals(0, testGame.getCount());
+    }
+
+    @Test
+    public void checkGuess_addToWrongCount_1() {
+        Game testGame = new Game();
+        testGame.setAnswer("zebra");
+        testGame.checkGuess('g');
+        assertEquals(1, testGame.getCount() );
+    }
 }

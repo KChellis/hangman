@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
-    private String[] wordList = {"zebra"};
+    private String[] wordList = {"zebra", "tarantula", "vehicle", "overtime", "fortnight", "emergency", "highlight"};
     private List<Character> userGuess = new ArrayList<Character>();
     private List<Character> guessedLetters = new ArrayList<Character>();
     private String answer;
+    private int wrongCount;
 
     public String[] getWordList() {
         return wordList;
@@ -20,7 +21,7 @@ public class Game {
 
     public String generateWord() {
         Random myRandomGenerator = new Random();
-        int index = myRandomGenerator.nextInt(1);
+        int index = myRandomGenerator.nextInt(7);
         return wordList[index];
     }
 
@@ -49,6 +50,7 @@ public class Game {
                 return true;
             }
         }
+        wrongCount += 1;
         return false;
     }
 
@@ -78,6 +80,10 @@ public class Game {
             return false;
         }
 
+    }
+
+    public int getCount() {
+        return wrongCount;
     }
 
 }

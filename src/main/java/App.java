@@ -26,21 +26,27 @@ public class App {
 
                 while(guessing){
                     System.out.println("You have guessed: " + hangman.getGuessedLetters());
-                    System.out.println("Your puzzle is: " + hangman.getGuess() + " Guess a letter.");
+                    String puzzle;
+                    StringBuilder builder = new StringBuilder(hangman.getGuess().size());
+                    for(Character letter: hangman.getGuess()){
+                        builder.append(letter + " ");
+                    }
+                    puzzle = builder.toString();
+                    System.out.println("Your puzzle is: " + puzzle + " Guess a letter.");
                     String userInput = bufferedReader.readLine().toLowerCase();
                     char guess = userInput.charAt(0);
                     boolean inWord = hangman.checkGuess(guess);
                     if (inWord) {
                         hangman.revealLetters(guess);
                         if(hangman.checkWin()){
-                            System.out.println("Congratulations you guessed the word!");
+                            System.out.println("Congratulations you guessed the word was " + hangman.getAnswer() + "!");
                             guessing = false;
                         }
 
                     }else {
                         System.out.println("Sorry, '" + guess + "' is not in the word. Try Again");
                     }
-                    if(hangman.getGuessedLetters().size() == 6){
+                    if(hangman.getCount() == 6){
                         System.out.println("You have run out of turns. The word was " + hangman.getAnswer() + ".");
                         guessing = false;
                     }
