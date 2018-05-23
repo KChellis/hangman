@@ -5,15 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
-    private String[] wordList = {"zebra", "tarantula", "vehicle", "overtime", "fortnight", "emergency", "highlight"};
-    private List<Character> userGuess = new ArrayList<Character>();
+    private String[] wordList = {"zebra", "tarantula", "vehicle", "overtime", "fortnight", "emergency", "highlight", "resume", "guess", "appreciation", "piano", "symphony", "wishing", "queen", "passive", "collar", "spectacular", "forest", "button", "mangle"};
+    private List<Character> userPuzzle = new ArrayList<Character>();
     private List<Character> guessedLetters = new ArrayList<Character>();
     private String answer;
-    private int wrongCount;
+    private int wrongGuessCount;
 
-    public String[] getWordList() {
-        return wordList;
-    }
 
     public List<Character> getGuessedLetters() {
         return guessedLetters;
@@ -21,7 +18,7 @@ public class Game {
 
     public String generateWord() {
         Random myRandomGenerator = new Random();
-        int index = myRandomGenerator.nextInt(7);
+        int index = myRandomGenerator.nextInt(20);
         return wordList[index];
     }
 
@@ -32,15 +29,15 @@ public class Game {
         return answer;
     }
 
-    public void setGuess() {
+    public void setUserPuzzle() {
         char[] answerLetters = answer.toCharArray();
         for (int i =0; i < answerLetters.length; i++){
-            userGuess.add('_');
+            userPuzzle.add('_');
         }
     }
 
-    public List<Character> getGuess(){
-        return userGuess;
+    public List<Character> getUserPuzzle(){
+        return userPuzzle;
     }
 
     public boolean checkGuess(char letterGuess) {
@@ -50,7 +47,7 @@ public class Game {
                 return true;
             }
         }
-        wrongCount += 1;
+        wrongGuessCount += 1;
         return false;
     }
 
@@ -63,14 +60,14 @@ public class Game {
             }
         }
         for (int index: indices){
-            userGuess.set(index, letterGuess);
+            userPuzzle.set(index, letterGuess);
         }
     }
 
     public boolean checkWin() {
         String guessString;
-        StringBuilder builder = new StringBuilder(userGuess.size());
-        for(Character letter: userGuess){
+        StringBuilder builder = new StringBuilder(userPuzzle.size());
+        for(Character letter: userPuzzle){
             builder.append(letter);
         }
         guessString = builder.toString();
@@ -82,8 +79,8 @@ public class Game {
 
     }
 
-    public int getCount() {
-        return wrongCount;
+    public int getWrongGuessCount() {
+        return wrongGuessCount;
     }
 
 }

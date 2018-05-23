@@ -16,11 +16,6 @@ public class GameTest {
     }
 
     @Test
-    public void newGame_getsWordList_Array() throws Exception{
-        Game testGame = new Game();
-        assertEquals(true, testGame.getWordList() instanceof String[]);
-    }
-    @Test
     public void newGame_getsGuessedLetters_Array() throws Exception{
         Game testGame = new Game();
         assertEquals(true, testGame.getGuessedLetters() instanceof ArrayList);
@@ -41,26 +36,26 @@ public class GameTest {
 
 
     @Test
-    public void newGame_getGuess_String() throws Exception {
+    public void newGame_getUserPuzzle_String() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
-        testGame.setGuess();
+        testGame.setUserPuzzle();
         List<Character> expected = new ArrayList<Character>();
         expected.add('_');
         expected.add('_');
         expected.add('_');
         expected.add('_');
         expected.add('_');
-        assertEquals(expected, testGame.getGuess());
+        assertEquals(expected, testGame.getUserPuzzle());
     }
 
     @Test
-    public void newGame_checksGuess_addsToCharacterGuessedList() throws Exception {
+    public void checkGuess_addsToCharacterGuessedList_ArrayList() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
+        testGame.checkGuess('z');
         ArrayList<Character> expected = new ArrayList<Character>();
         expected.add('z');
-        testGame.checkGuess('z');
         assertEquals(expected, testGame.getGuessedLetters());
     }
 
@@ -78,19 +73,18 @@ public class GameTest {
     }
 
     @Test
-    public void revealLetters_revealsLettersInUserGuess_string() throws Exception {
+    public void revealLetters_revealsLettersInUserPuzzle_string() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
-        testGame.setGuess();
+        testGame.setUserPuzzle();
+        testGame.revealLetters('z');
         List<Character> expected = new ArrayList<Character>();
         expected.add('z');
         expected.add('_');
         expected.add('_');
         expected.add('_');
         expected.add('_');
-        testGame.revealLetters('z');
-
-        assertEquals(expected, testGame.getGuess());
+        assertEquals(expected, testGame.getUserPuzzle());
 
     }
 
@@ -98,7 +92,7 @@ public class GameTest {
     public void checkWin_returnsFalseIfWrongGuess_false() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
-        testGame.setGuess();
+        testGame.setUserPuzzle();
         assertEquals(false, testGame.checkWin());
     }
 
@@ -106,7 +100,7 @@ public class GameTest {
     public void checkWin_returnsTrueIfCorrectGuess_true() throws Exception {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
-        testGame.setGuess();
+        testGame.setUserPuzzle();
         testGame.revealLetters('z');
         testGame.revealLetters('e');
         testGame.revealLetters('b');
@@ -116,16 +110,16 @@ public class GameTest {
     }
 
     @Test
-    public void getCount_returnCount_0() {
+    public void getWrongGuessCount_returnCount_0() {
         Game testGame = new Game();
-        assertEquals(0, testGame.getCount());
+        assertEquals(0, testGame.getWrongGuessCount());
     }
 
     @Test
-    public void checkGuess_addToWrongCount_1() {
+    public void checkGuess_addToWrongGuessCount_1() {
         Game testGame = new Game();
         testGame.setAnswer("zebra");
         testGame.checkGuess('g');
-        assertEquals(1, testGame.getCount() );
+        assertEquals(1, testGame.getWrongGuessCount());
     }
 }

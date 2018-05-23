@@ -21,14 +21,41 @@ public class App {
             try {
                 boolean guessing = true;
                 Game hangman = new Game();
-                hangman.setAnswer(hangman.generateWord());
-                hangman.setGuess();
+                System.out.println("Would you like to input your own word? y/n");
+                String option = bufferedReader.readLine().toLowerCase();
+                if(option.equals("y")){
+                    System.out.println("Enter your word:");
+                    String userWord = bufferedReader.readLine().toLowerCase();
+                    hangman.setAnswer(userWord);
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+                    System.out.println("---------");
+
+                }else{
+                    hangman.setAnswer(hangman.generateWord());
+                }
+
+                hangman.setUserPuzzle();
 
                 while(guessing){
                     System.out.println("You have guessed: " + hangman.getGuessedLetters());
                     String puzzle;
-                    StringBuilder builder = new StringBuilder(hangman.getGuess().size());
-                    for(Character letter: hangman.getGuess()){
+                    StringBuilder builder = new StringBuilder(hangman.getUserPuzzle().size());
+                    for(Character letter: hangman.getUserPuzzle()){
                         builder.append(letter + " ");
                     }
                     puzzle = builder.toString();
@@ -46,7 +73,7 @@ public class App {
                     }else {
                         System.out.println("Sorry, '" + guess + "' is not in the word. Try Again");
                     }
-                    if(hangman.getCount() == 6){
+                    if(hangman.getWrongGuessCount() == 6){
                         System.out.println("You have run out of turns. The word was " + hangman.getAnswer() + ".");
                         guessing = false;
                     }
